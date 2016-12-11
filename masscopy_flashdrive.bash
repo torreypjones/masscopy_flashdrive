@@ -81,18 +81,23 @@ while (true) ; do
 	mount /dev/$DESTDEVICE ${mountdir}
 
 
-	for i in $SOURCEDIR/* ; do
-		echo `date` working on $i
-		if [ -e $mountdir/$i ] ; then
-			echo     file already exists
-		else 
-			echo     file does not exist yet, copying...
-			#echo "scp -v $SOURCEDIR/$i $mountdir/$i"
-			#scp -v $SOURCEDIR/$i $mountdir/$i
-			echo "rsync --progress $SOURCEDIR/$i $mountdir/$i"
-			rsync --progress $SOURCEDIR/$i $mountdir/$i
-		fi
-	done
+	#for i in $SOURCEDIR/* ; do
+		#echo `date` working on $i
+		#if [ -e $mountdir/$i ] ; then
+			#echo     file already exists
+		#else 
+			#echo     file does not exist yet, copying...
+			##echo "scp -v $SOURCEDIR/$i $mountdir/$i"
+			##scp -v $SOURCEDIR/$i $mountdir/$i
+			#echo "rsync --progress $SOURCEDIR/$i $mountdir/$i"
+			#rsync --progress $SOURCEDIR/$i $mountdir/$i
+		#fi
+	#done
+
+	echo "rsync --progress $SOURCEDIR $mountdir"
+	rsync -r --progress $SOURCEDIR $mountdir
+
+	
 
 	umount $mountdir
 	rmdir $mountdir
